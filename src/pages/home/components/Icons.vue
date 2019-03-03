@@ -1,6 +1,6 @@
 <template>
   <div class="icons">
-    <swiper>
+    <swiper :options="swiperOption" >
       <swiper-slide v-for="(page, index) in pages" :key="index">
         <div v-for="item in page" :key="item.id" class="icon">
           <div class="icon-img">
@@ -16,50 +16,8 @@
 <script>
 export default {
   name: 'HomeIcons',
-  data () {
-    return {
-      iconList: [{
-        id: '001',
-        imgUrl: 'http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png',
-        desc: '热门景点'
-      }, {
-        id: '002',
-        imgUrl: 'http://img1.qunarzz.com/piao/fusion/1804/5a/13ceb38dcf262f02.png',
-        desc: '一日游'
-      }, {
-        id: '003',
-        imgUrl: 'http://img1.qunarzz.com/piao/fusion/1804/ff/fdf170ee89594b02.png',
-        desc: '深圳必游'
-      }, {
-        id: '004',
-        imgUrl: 'http://img1.qunarzz.com/piao/fusion/1803/50/26ffa31b56646402.png',
-        desc: '海洋馆'
-      }, {
-        id: '005',
-        imgUrl: 'http://img1.qunarzz.com/piao/fusion/1803/b6/37560ece9c62b502.png',
-        desc: '东部华侨城'
-      }, {
-        id: '006',
-        imgUrl: 'http://img1.qunarzz.com/piao/fusion/1803/76/eb88861d78fb9902.png',
-        desc: '动植物园'
-      }, {
-        id: '007',
-        imgUrl: 'http://img1.qunarzz.com/piao/fusion/1803/bd/9f7b9b2b60c1502.png',
-        desc: '踏青赏花'
-      }, {
-        id: '008',
-        imgUrl: 'http://img1.qunarzz.com/piao/fusion/1803/a6/6d97515091789602.png',
-        desc: '世界之窗'
-      }, {
-        id: '009',
-        imgUrl: 'http://img1.qunarzz.com/piao/fusion/1803/b1/528a9e80403b8c02.png',
-        desc: '欢乐谷'
-      }, {
-        id: '010',
-        imgUrl: 'http://img1.qunarzz.com/piao/fusion/1803/e7/d108f17143b40f02.png',
-        desc: '三月特惠'
-      }]
-    }
+  props: {
+    iconList: Array
   },
   computed: {
     pages () {
@@ -72,6 +30,13 @@ export default {
         pages[page].push(item)
       })
       return pages
+    }
+  },
+  data () {
+    return {
+      swiperOption: {
+        autoplay: false
+      }
     }
   }
 }
