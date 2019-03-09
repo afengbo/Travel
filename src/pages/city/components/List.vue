@@ -17,7 +17,11 @@
           </div>
         </div>
       </div>
-      <div class="area" v-for="(item, key) in cities" :key="key">
+      <div class="area" 
+      v-for="(item, key) in cities" 
+      :key="key"
+      :ref="key"
+      >
         <div class="title border-topbottom">{{key}}</div>
         <div class="item-list">
           <div class="item border-bottom" v-for="c in item" :key="c.id">{{c.name}}</div>
@@ -33,10 +37,20 @@ export default {
   name: 'CityList',
   props: {
     cities: Object,
-    hotcities: Array
+    hotcities: Array,
+    letter: String
   },
   mounted () {
     this.scroll = new BScroll(this.$refs.wrapper)
+  },
+  watch: {
+    letter () {
+      if (this.letter) {
+        const element = this.$refs[this.letter][0]
+        // 可以将页面自动滚动到某一个元素上
+        this.scroll.scrollToElement(element)
+      }
+    }
   }
 }
 </script>
