@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-    <!-- <Home/> -->
-    <router-view></router-view>
+    <!-- 路由加载过一次之后就将路由放到内存，下次请求只需从内存获取即可 -->
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
