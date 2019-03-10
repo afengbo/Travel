@@ -1,6 +1,9 @@
 <template>
   <div>
-    <detail-banner></detail-banner>
+    <detail-banner 
+      :sightName='sightName'
+      :bannerImg='bannerImg'
+      :bannerImgs='gallaryImgs'></detail-banner>
     <detail-header></detail-header>
     <div class="content">
       <detail-list :list='list'></detail-list>
@@ -9,6 +12,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import DetailBanner from './components/Banner'
 import DetailHeader from './components/Header'
 import DetailList from './components/List'
@@ -21,24 +25,33 @@ export default {
   },
   data () {
     return {
-      list: [{
-        title: '成人票',
-        children: [{
-          title: '成人3馆通票'
-        }, {
-          title: '成人6馆通票',
-          children: [{
-            title: '成人6馆拿3罐'
-          }]
-        }]
-      }, {
-        title: '儿童票'
-      }, {
-        title: '学生票'
-      }, {
-        title: '特惠票'
-      }]
+      sightName: '',
+      bannerImg: '',
+      gallaryImgs: [],
+      list: []
     }
+  },
+  methods: {
+    getDetailInfo () {
+      axios.get('/api/detail.json', {
+        params: {
+          id: this.$route.params.id
+        }
+      }).then(this.getDetailSucc)
+    },
+    getDetailSucc (res) {
+      res = res.data
+      if (res.ret && res.data) {
+        const data = res.data
+        this.sightName = data.sightName
+        this.bannerImg = data.bannerImg
+        this.gallaryImgs = data.gallaryImgs
+        this.list = data.categoryList
+      }
+    }
+  },
+  mounted () {
+    this.getDetailInfo()
   }
 }
 </script>
